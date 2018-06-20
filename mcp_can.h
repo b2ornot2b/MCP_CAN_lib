@@ -24,13 +24,14 @@
 #ifndef _MCP2515_H_
 #define _MCP2515_H_
 
+#include <SPI.h>
 #include "mcp_can_dfs.h"
 #define MAX_CHAR_IN_MESSAGE 8
 
 class MCP_CAN
 {
     private:
-    
+    SPIClass *mSPI;
     INT8U   m_nExtFlg;                                                  // Identifier Type
                                                                         // Extended (29 bit) or Standard (11 bit)
     INT32U  m_nID;                                                      // CAN ID
@@ -105,7 +106,7 @@ class MCP_CAN
 
 public:
     MCP_CAN(INT8U _CS);
-    INT8U begin(INT8U idmodeset, INT8U speedset, INT8U clockset);       // Initialize controller parameters
+    INT8U begin(INT8U idmodeset, INT8U speedset, INT8U clockset, SPIClass *spi=NULL);       // Initialize controller parameters
     INT8U init_Mask(INT8U num, INT8U ext, INT32U ulData);               // Initialize Mask(s)
     INT8U init_Mask(INT8U num, INT32U ulData);                          // Initialize Mask(s)
     INT8U init_Filt(INT8U num, INT8U ext, INT32U ulData);               // Initialize Filter(s)
